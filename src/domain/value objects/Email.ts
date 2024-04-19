@@ -2,10 +2,11 @@ export default class Email {
     private email: string;
 
     constructor(email: string) {
-        this.email = email;
+        this.email = this.setEmail(email);
     }
     setEmail(email: string) {
-        if (!email.match(/.+@.+.com/)) throw new Error('Invalid email');
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) throw new Error('Invalid email');
         return email;
     }
 
