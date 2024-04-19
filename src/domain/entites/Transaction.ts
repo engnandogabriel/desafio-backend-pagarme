@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import CardNumber from '../value objects/CardNumber';
 
 export default class Transaction {
     private id_transaction: string;
@@ -6,7 +7,7 @@ export default class Transaction {
     private description: string;
     private value: number;
     private method_payment: 'debit_card' | 'credit_card';
-    private card_number: string;
+    private card_number: CardNumber;
     private name_owner: string;
     private validate_date: string;
     private cvv: string;
@@ -18,7 +19,7 @@ export default class Transaction {
         this.value = value;
         this.method_payment = method_payment;
         this.name_owner = name_owner;
-        this.card_number = card_number;
+        this.card_number = new CardNumber(card_number);
         this.validate_date = validate_date;
         this.cvv = cvv;
     }
@@ -42,7 +43,7 @@ export default class Transaction {
     }
 
     getCardNumber(): string {
-        return this.card_number;
+        return this.card_number.getCardNumber();
     }
 
     getNameOwner(): string {
