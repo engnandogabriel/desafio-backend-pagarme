@@ -13,6 +13,9 @@ test('Deve criar uma transação', () => {
 test('Não deve criar uma transação com valor invalido', () => {
     expect(() => Transaction.create('1234', 'Capa de celular', 0, 'debit_card', '1234 5678 7894 1234', 'John Doe', '01/24', '422')).toThrow(new Error('Amount is ivalid'));
 });
+test('Não deve criar uma transação com numero do cartão inválido', () => {
+    expect(() => Transaction.create('1234', 'Capa de celular', 30, 'debit_card', '1234 5678 7894 123445', 'John Doe', '01/24', '422')).toThrow(new Error('Length Card of Number is invalid'));
+});
 test('Não deve criar uma transação com data de validade do cartão invalido', () => {
     expect(() => Transaction.create('1234', 'Capa de celular', 30, 'debit_card', '1234 5678 7894 1234', 'John Doe', '01/24', '422')).toThrow(new Error('Date is invalid'));
 });
