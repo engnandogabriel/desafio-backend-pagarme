@@ -5,10 +5,17 @@ export default class User {
     private name: string;
     private email: Email;
 
-    constructor(name: string, email: string) {
-        this.id = crypto.randomUUID();
-        this.email = new Email(email);
+    private constructor(id: string, name: string, email: Email) {
+        this.id = id;
+        this.email = email;
         this.name = name;
+    }
+    static create(name: string, email: string) {
+        const id = crypto.randomUUID();
+        return new User(id, name, new Email(email));
+    }
+    static restore(id: string, name: string, email: string) {
+        return new User(id, name, new Email(email));
     }
     getId(): string {
         return this.id;
