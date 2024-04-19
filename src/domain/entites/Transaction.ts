@@ -1,11 +1,12 @@
 import crypto from 'crypto';
 import CardNumber from '../value objects/CardNumber';
+import Amount from '../value objects/Value';
 
 export default class Transaction {
     private id_transaction: string;
     private id_client: string;
     private description: string;
-    private value: number;
+    private value: Amount;
     private method_payment: 'debit_card' | 'credit_card';
     private card_number: CardNumber;
     private name_owner: string;
@@ -16,7 +17,7 @@ export default class Transaction {
         this.id_transaction = crypto.randomUUID();
         this.id_client = id_client;
         this.description = description;
-        this.value = value;
+        this.value = new Amount(value);
         this.method_payment = method_payment;
         this.name_owner = name_owner;
         this.card_number = new CardNumber(card_number);
@@ -36,7 +37,7 @@ export default class Transaction {
         return this.description;
     }
     getValue(): number {
-        return this.value;
+        return this.value.getAmount();
     }
     getMethodPayment(): 'debit_card' | 'credit_card' {
         return this.method_payment;
