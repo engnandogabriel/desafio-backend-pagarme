@@ -6,8 +6,10 @@ export default class CVV {
     }
 
     private setCVV(cvv: string) {
-        const regexCVV = /^\d{3,4}/;
-        if (!regexCVV.test(cvv)) throw new Error('CVV is invalid');
+        const regexCVV = /^\d{3}$/;
+        if (!regexCVV.test(cvv)) {
+            throw new Error('CVV is invalid');
+        }
         return cvv;
     }
     getCVV(): string {
