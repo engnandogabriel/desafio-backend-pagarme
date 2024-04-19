@@ -7,4 +7,5 @@ test('Deve criar uma transação', () => {
     expect(transaction.getCardNumber()).toBe('1234');
     expect(transaction.getValue()).toBe(30);
     expect(transaction.getValidateDate()).toBe('01/26');
+    expect(transaction.getCvv()).toBe('422');
 });
