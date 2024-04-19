@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import CardNumber from '../value objects/CardNumber';
 import Amount from '../value objects/Value';
+import ValidateDate from '../value objects/ValidateDate';
 
 export default class Transaction {
     private id_transaction: string;
@@ -10,7 +11,7 @@ export default class Transaction {
     private method_payment: 'debit_card' | 'credit_card';
     private card_number: CardNumber;
     private name_owner: string;
-    private validate_date: string;
+    private validate_date: ValidateDate;
     private cvv: string;
 
     constructor(id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
@@ -21,7 +22,7 @@ export default class Transaction {
         this.method_payment = method_payment;
         this.name_owner = name_owner;
         this.card_number = new CardNumber(card_number);
-        this.validate_date = validate_date;
+        this.validate_date = new ValidateDate(validate_date);
         this.cvv = cvv;
     }
 
@@ -52,7 +53,7 @@ export default class Transaction {
     }
 
     getValidateDate(): string {
-        return this.validate_date;
+        return this.validate_date.getValidateDate();
     }
 
     getCvv(): string {
