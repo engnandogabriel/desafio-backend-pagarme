@@ -1,12 +1,13 @@
 import crypto from 'crypto';
+import Email from '../value objects/Email';
 export default class User {
     private id: string;
     private name: string;
-    private email: string;
+    private email: Email;
 
     constructor(name: string, email: string) {
         this.id = crypto.randomUUID();
-        this.email = email;
+        this.email = new Email(email);
         this.name = name;
     }
     getId(): string {
@@ -16,6 +17,6 @@ export default class User {
         return this.name;
     }
     getEmail(): string {
-        return this.email;
+        return this.email.getEmail();
     }
 }
