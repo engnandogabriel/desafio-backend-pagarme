@@ -7,7 +7,5 @@ test('Deve criar um usuário', () => {
 });
 
 test('Não deve criar um usuário com email inválido', () => {
-    expect(() => User.create('john doe', 'john.doegmail.com')).toThrow(
-        new Error('Invalid email')
-    );
+    expect(() => User.create('john doe', 'john.doegmail.com')).toThrow(new Error('Invalid email'));
 });
