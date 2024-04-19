@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import CardNumber from '../value objects/CardNumber';
 import Amount from '../value objects/Value';
 import ValidateDate from '../value objects/ValidateDate';
+import CVV from '../value objects/CVV';
 
 export default class Transaction {
     private id_transaction: string;
@@ -12,7 +13,7 @@ export default class Transaction {
     private card_number: CardNumber;
     private name_owner: string;
     private validate_date: ValidateDate;
-    private cvv: string;
+    private cvv: CVV;
 
     constructor(id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
         this.id_transaction = crypto.randomUUID();
@@ -23,7 +24,7 @@ export default class Transaction {
         this.name_owner = name_owner;
         this.card_number = new CardNumber(card_number);
         this.validate_date = new ValidateDate(validate_date);
-        this.cvv = cvv;
+        this.cvv = new CVV(cvv);
     }
 
     getId(): string {
@@ -57,6 +58,6 @@ export default class Transaction {
     }
 
     getCvv(): string {
-        return this.cvv;
+        return this.cvv.getCVV();
     }
 }
