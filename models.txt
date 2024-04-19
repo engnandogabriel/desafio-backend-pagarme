@@ -1,0 +1,35 @@
+Em sua essência um PSP tem duas funções muito importantes:
+
+Permitir que nossos clientes processem transações ("cash-in")
+Efetuar os pagamentos dos recebíveis para os nossos clientes ("cash-out")
+No Pagar.me, nós temos duas entidades que representam essas informações:
+
+transactions: que representam as informações da compra, dados do cartão, valor, etc
+payables: que representam os recebíveis que pagaremos ao cliente
+
+Client :
+    id - uuid
+    name - string
+    email - string
+
+Transactions :
+    id_transactions - uuid
+    id_client - string
+    description - string
+    value - number
+    method_payment - string 
+    card_number - string
+    name_owner - string
+    validate_date - string (MM/YY)
+    cvv - string
+
+Payables :
+    id - uuid
+    id_client - string
+    value - number
+    status - uuid
+    payment_date - date
+
+* O metodo de pagamento poderá ser debit_card ou credit_card;
+* 3% para transações feitas com um cartão de débito;
+* 5% para transações feitas com um cartão de crédito;
