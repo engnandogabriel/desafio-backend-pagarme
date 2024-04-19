@@ -15,18 +15,25 @@ export default class Transaction {
     private validate_date: ValidateDate;
     private cvv: CVV;
 
-    constructor(id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
-        this.id_transaction = crypto.randomUUID();
+    private constructor(id_transaction: string, id_client: string, description: string, value: Amount, method_payment: 'debit_card' | 'credit_card', card_number: CardNumber, name_owner: string, validate_date: ValidateDate, cvv: CVV) {
+        this.id_transaction = id_transaction;
         this.id_client = id_client;
         this.description = description;
-        this.value = new Amount(value);
+        this.value = value;
         this.method_payment = method_payment;
         this.name_owner = name_owner;
-        this.card_number = new CardNumber(card_number);
-        this.validate_date = new ValidateDate(validate_date);
-        this.cvv = new CVV(cvv);
+        this.card_number = card_number;
+        this.validate_date = validate_date;
+        this.cvv = cvv;
     }
 
+    static create(id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
+        const id = crypto.randomUUID();
+        return new Transaction(id, id_client, description, new Amount(value), method_payment, new CardNumber(card_number), name_owner, new ValidateDate(validate_date), new CVV(cvv));
+    }
+    static restore(id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
+        return new Transaction(id_client, id_client, description, new Amount(value), method_payment, new CardNumber(card_number), name_owner, new ValidateDate(validate_date), new CVV(cvv));
+    }
     getId(): string {
         return this.id_transaction;
     }
