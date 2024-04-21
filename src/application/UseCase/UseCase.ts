@@ -1,3 +1,4 @@
+import HttpResponse from '../../domain/HttpServer/HttpResponse';
 export default interface UseCase {
-    save(data: any): Promise<any>;
+    execute(data: any): Promise<HttpResponse>;
 }
