@@ -41,4 +41,7 @@ export default abstract class Payble {
     getType(): string {
         return this.type;
     }
+    getPaymentDate(): Date {
+        return this.paymentDate;
+    }
 }
