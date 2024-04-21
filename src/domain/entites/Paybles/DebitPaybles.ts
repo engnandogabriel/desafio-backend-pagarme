@@ -13,7 +13,7 @@ export default class DebitPaybles extends Payble {
         const id = crypto.randomUUID();
         return new DebitPaybles(id, transaction_id, client_id, value, 'paid', 'debit_card');
     }
-    static restory(payble_id: string, transaction_id: string, client_id: string, value: number, status: string, type: string): Payble {
+    static restore(payble_id: string, transaction_id: string, client_id: string, value: number, status: string, type: string): Payble {
         return new DebitPaybles(payble_id, transaction_id, client_id, value, status, type);
     }
     protected setPaymentDate(): void {

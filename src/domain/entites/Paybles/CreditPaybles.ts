@@ -14,7 +14,7 @@ export default class CreditPaybles extends Payble {
         const id = crypto.randomUUID();
         return new CreditPaybles(id, transaction_id, client_id, value, 'waiting_funds', 'credit_card');
     }
-    static restory(payble_id: string, transaction_id: string, client_id: string, value: number, status: string, type: string): Payble {
+    static restore(payble_id: string, transaction_id: string, client_id: string, value: number, status: string, type: string): Payble {
         return new CreditPaybles(payble_id, transaction_id, client_id, value, status, type);
     }
     protected setPaymentDate(): void {
