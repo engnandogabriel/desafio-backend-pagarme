@@ -31,8 +31,8 @@ export default class Transaction {
         const id = crypto.randomUUID();
         return new Transaction(id, id_client, description, new Amount(value), method_payment, new CardNumber(card_number), name_owner, new ValidateDate(validate_date), new CVV(cvv));
     }
-    static restore(id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
-        return new Transaction(id_client, id_client, description, new Amount(value), method_payment, new CardNumber(card_number), name_owner, new ValidateDate(validate_date), new CVV(cvv));
+    static restore(id_transaction: string, id_client: string, description: string, value: number, method_payment: 'debit_card' | 'credit_card', card_number: string, name_owner: string, validate_date: string, cvv: string) {
+        return new Transaction(id_transaction, id_client, description, new Amount(value), method_payment, new CardNumber(card_number), name_owner, new ValidateDate(validate_date), new CVV(cvv));
     }
     getId(): string {
         return this.id_transaction;
