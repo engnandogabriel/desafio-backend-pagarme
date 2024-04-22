@@ -10,6 +10,7 @@ export default class PayblesRepositoryMemory implements PayblesRepository {
             new PaybleFactory().factory('credit_card', { payble_id: '0e70ca3d-8324-42d6-8f08-2d64b6c39c67', transaction_id: 'e513f051-2ce7-4cc4-ae7e-a1bdd699bbbc', client_id: '642485af-9f85-4930-9ab9-f4c2d006d3c9', status: 'waiting_funds', type: 'credit_card', value: 95 }),
         ];
     }
+
     async save(payble: Paybles): Promise<void> {
         this.paybles.push(payble);
     }
@@ -20,8 +21,12 @@ export default class PayblesRepositoryMemory implements PayblesRepository {
     async getAll(): Promise<Paybles[]> {
         return this.paybles;
     }
-    async getByStatus(method: string): Promise<Paybles[]> {
-        const paybles = this.paybles.filter((payble) => payble.getStatus() === method);
+    async getByMethodAndClient(method: string, client_id: string): Promise<Paybles[]> {
+        const paybles = this.paybles.filter((payble) => payble.getStatus() === method && payble.getClientId() === client_id);
+        return paybles;
+    }
+    async getByClient(client_id: string): Promise<Paybles[]> {
+        const paybles = this.paybles.filter((payble) => payble.getClientId() === client_id);
         return paybles;
     }
 }
