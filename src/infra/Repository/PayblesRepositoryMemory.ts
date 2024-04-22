@@ -21,8 +21,8 @@ export default class PayblesRepositoryMemory implements PayblesRepository {
     async getAll(): Promise<Paybles[]> {
         return this.paybles;
     }
-    async getByMethodAndClient(method: string, client_id: string): Promise<Paybles[]> {
-        const paybles = this.paybles.filter((payble) => payble.getStatus() === method && payble.getClientId() === client_id);
+    async getByMethodAndClient(status: string, client_id: string): Promise<Paybles[]> {
+        const paybles = this.paybles.filter((payble) => payble.getStatus() === status && payble.getClientId() === client_id);
         return paybles;
     }
     async getByClient(client_id: string): Promise<Paybles[]> {
