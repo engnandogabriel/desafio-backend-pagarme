@@ -13,11 +13,11 @@ export default class UserRepositoryMemory implements UserRepository {
     }
     async getById(user_id: string): Promise<void | User> {
         const user = this.users.find((user) => user.getId() === user_id);
-        return user;
+        if (user) return user;
     }
     async getByEmail(email: string): Promise<void | User> {
-        const user = this.users.find((user) => user.getId() === email);
-        return user;
+        const user = this.users.find((user) => user.getEmail() === email);
+        if (user) return user;
     }
     async getAll(): Promise<User[]> {
         return this.users;
