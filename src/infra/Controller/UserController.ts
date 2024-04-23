@@ -15,5 +15,9 @@ export default class UserController {
             const output = await this.createUser.execute({ name: req.body.name, email: req.body.email });
             return output;
         });
+        this.httpServer.on('get', '/user', async (req: any) => {
+            const output = await this.getAllUser.execute();
+            return output;
+        });
     }
 }
