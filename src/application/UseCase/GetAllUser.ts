@@ -8,7 +8,7 @@ export default class CreateUser implements UseCase {
     constructor(userRepository: UserRepository) {
         this.userRepository = userRepository;
     }
-    async execute(data: Input): Promise<HttpResponse> {
+    async execute(): Promise<HttpResponse> {
         try {
             const users = await this.userRepository.getAll();
             const output: Array<Output> = [];
@@ -35,11 +35,6 @@ export default class CreateUser implements UseCase {
         }
     }
 }
-
-type Input = {
-    name: string;
-    email: string;
-};
 
 type Output = {
     id: string;
