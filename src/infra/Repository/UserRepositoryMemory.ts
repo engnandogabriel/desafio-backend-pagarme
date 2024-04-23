@@ -3,10 +3,7 @@ import UserRepository from '../../domain/repository/UserRepository';
 export default class UserRepositoryMemory implements UserRepository {
     users: Array<User>;
     constructor() {
-        this.users = [
-            User.restore('157064e7-0ec2-40b6-b583-4ba017dfd53c', 'John Doe', 'john.doe@gmail.com'),
-            User.restore('642485af-9f85-4930-9ab9-f4c2d006d3c9', 'Fulano de Tal', 'fulano.de.tal@gmail.com'),
-        ];
+        this.users = [User.restore('157064e7-0ec2-40b6-b583-4ba017dfd53c', 'John Doe', 'john.doe@gmail.com'), User.restore('642485af-9f85-4930-9ab9-f4c2d006d3c9', 'Fulano de Tal', 'fulano.de.tal@gmail.com')];
     }
     async save(data: User): Promise<void> {
         this.users.push(data);

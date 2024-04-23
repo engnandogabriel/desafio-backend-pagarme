@@ -15,7 +15,6 @@ export default class GetAmountWaitngPayment implements UseCase {
             const client = await this.userRepository.getById(data.client_id);
             if (!client) return { statusCode: 404, body: 'Client not found' };
             const paybles = await this.payblesRepository.getByMethodAndClient('waiting_funds', data.client_id);
-            console.log(paybles);
             let value = 0;
             for (const payble of paybles) {
                 value += payble.getValue();
