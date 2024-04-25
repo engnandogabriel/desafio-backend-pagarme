@@ -16,7 +16,7 @@ export default class TransactionController {
             return output;
         });
 
-        this.httpServer.on('post', '/transaction/credit_card', async (req: any) => {
+        this.httpServer.on('post', '/transaction/debit_card', async (req: any) => {
             const output = await this.createDebitTransaction.execute(req.body);
             return output;
         });
