@@ -13,6 +13,6 @@ export default class AxiosAdpter implements HttpServer {
         });
     }
     listen(port: number): void {
-        this.app.listen(port);
+        this.app.listen(port, () => console.log('Server running in port: ', port));
     }
 }
