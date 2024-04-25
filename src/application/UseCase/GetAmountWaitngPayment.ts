@@ -1,5 +1,6 @@
+import ServerError from '../../domain/Error/ServerError';
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
-import { success } from '../../domain/helpers/httphelpers';
+import { badRequest, serverError, success } from '../../domain/helpers/httphelpers';
 import PayblesRepository from '../../domain/repository/PayblesRepository';
 import UserRepository from '../../domain/repository/UserRepository';
 import UseCase from './UseCase';
@@ -29,15 +30,9 @@ export default class GetAmountWaitngPayment implements UseCase {
             });
         } catch (error) {
             if (error instanceof Error) {
-                return {
-                    statusCode: 422,
-                    body: error.message,
-                };
+                return badRequest(error);
             }
-            return {
-                statusCode: 500,
-                body: 'Unexpected Error',
-            };
+            return serverError(new ServerError('Unexpected Error'));
         }
     }
 }

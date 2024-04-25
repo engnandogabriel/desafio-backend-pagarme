@@ -1,6 +1,7 @@
+import ServerError from '../../domain/Error/ServerError';
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
 import User from '../../domain/entites/User';
-import { success } from '../../domain/helpers/httphelpers';
+import { badRequest, serverError, success } from '../../domain/helpers/httphelpers';
 import UserRepository from '../../domain/repository/UserRepository';
 import UseCase from './UseCase';
 
@@ -18,15 +19,9 @@ export default class CreateUser implements UseCase {
             return success(201, { message: 'User created' });
         } catch (error) {
             if (error instanceof Error) {
-                return {
-                    statusCode: 422,
-                    body: error.message,
-                };
+                return badRequest(error);
             }
-            return {
-                statusCode: 500,
-                body: 'Unexpected Error',
-            };
+            return serverError(new ServerError('Unexpected Error'));
         }
     }
 }

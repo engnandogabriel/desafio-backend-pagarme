@@ -1,7 +1,8 @@
+import ServerError from '../../domain/Error/ServerError';
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
 import DebitPaybles from '../../domain/entites/Paybles/DebitPaybles';
 import Transaction from '../../domain/entites/Transaction';
-import { success } from '../../domain/helpers/httphelpers';
+import { badRequest, serverError, success } from '../../domain/helpers/httphelpers';
 import PayblesRepository from '../../domain/repository/PayblesRepository';
 import TransactionRepository from '../../domain/repository/TransactionRepository';
 import UserRepository from '../../domain/repository/UserRepository';
@@ -31,15 +32,9 @@ export default class CreateDebitTransaction implements UseCase {
             return success(201, { message: 'Transaction Created', body: { value: data.value, amout: debit_payble.getValue(), type: debit_payble.getType(), status: debit_payble.getStatus(), card_number: transaction.getCardNumber() } });
         } catch (error) {
             if (error instanceof Error) {
-                return {
-                    statusCode: 422,
-                    body: error.message,
-                };
+                return badRequest(error);
             }
-            return {
-                statusCode: 500,
-                body: 'Unexpected Error',
-            };
+            return serverError(new ServerError('Unexpected Error'));
         }
     }
 }
