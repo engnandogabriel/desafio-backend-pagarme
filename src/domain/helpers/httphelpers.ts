@@ -30,3 +30,14 @@ export const badRequest = (error: Error): HttpResponse => ({
         },
     },
 });
+
+export const notFound = (error: Error): HttpResponse => ({
+    statusCode: 404,
+    body: {
+        type: 'NotFound',
+        error: {
+            name: error.name,
+            message: error.message,
+        },
+    },
+});
