@@ -1,4 +1,5 @@
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
+import { success } from '../../domain/helpers/httphelpers';
 import PayblesRepository from '../../domain/repository/PayblesRepository';
 import UserRepository from '../../domain/repository/UserRepository';
 import UseCase from './UseCase';
@@ -19,13 +20,13 @@ export default class GetAmountWaitngPayment implements UseCase {
             for (const payble of paybles) {
                 value += payble.getValue();
             }
-            return {
-                statusCode: 200,
-                body: {
-                    status: 'waiting_funds',
+            return success(200, {
+                message: 'Waiting Payments',
+                data: {
+                    status: 'waiting',
                     amount: value,
                 },
-            };
+            });
         } catch (error) {
             if (error instanceof Error) {
                 return {

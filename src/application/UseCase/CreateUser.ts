@@ -1,5 +1,6 @@
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
 import User from '../../domain/entites/User';
+import { success } from '../../domain/helpers/httphelpers';
 import UserRepository from '../../domain/repository/UserRepository';
 import UseCase from './UseCase';
 
@@ -14,10 +15,7 @@ export default class CreateUser implements UseCase {
             if (userExist) return { statusCode: 422, body: 'User already exists.' };
             const user = User.create(data.name, data.email);
             await this.userRepository.save(user);
-            return {
-                statusCode: 201,
-                body: 'User created',
-            };
+            return success(201, { message: 'User created' });
         } catch (error) {
             if (error instanceof Error) {
                 return {

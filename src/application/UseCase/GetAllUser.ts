@@ -1,5 +1,6 @@
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
 import User from '../../domain/entites/User';
+import { success } from '../../domain/helpers/httphelpers';
 import UserRepository from '../../domain/repository/UserRepository';
 import UseCase from './UseCase';
 
@@ -17,10 +18,7 @@ export default class CreateUser implements UseCase {
                     output.push({ id: user.getId(), name: user.getName(), email: user.getEmail() });
                 }
             }
-            return {
-                statusCode: 200,
-                body: output,
-            };
+            return success(200, { message: 'All Users', data: output });
         } catch (error) {
             if (error instanceof Error) {
                 return {
