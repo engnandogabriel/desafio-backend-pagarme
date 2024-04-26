@@ -1,3 +1,5 @@
+import InvalidParamError from '../Error/InvalidParamError';
+
 export default class Amount {
     private amount: number;
 
@@ -6,7 +8,7 @@ export default class Amount {
     }
 
     private setAmount(amount: number) {
-        if (amount <= 0) throw new Error('Amount is ivalid');
+        if (amount <= 0) throw new InvalidParamError('The value must be greater than 10');
         return amount;
     }
 
