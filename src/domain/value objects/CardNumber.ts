@@ -1,3 +1,5 @@
+import InvalidParamError from '../Error/InvalidParamError';
+
 export default class CardNumber {
     private card_number: string;
     constructor(card_number: string) {
@@ -5,7 +7,7 @@ export default class CardNumber {
     }
     private setCardNumber(card_number: string): string {
         const numberWithoutSpace = card_number.replace(/\s/g, '');
-        if (numberWithoutSpace.length != 16) throw new Error('Length Card of Number is invalid');
+        if (numberWithoutSpace.length != 16) throw new InvalidParamError('Length Card of Number is invalid');
         const lastDigit = numberWithoutSpace.slice(-4);
         return lastDigit;
     }
