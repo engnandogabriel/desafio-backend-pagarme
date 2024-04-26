@@ -1,10 +1,13 @@
 import HttpServer from './HttpServer';
 import express, { Request, Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSON from '../../../swagger.json';
 export default class AxiosAdpter implements HttpServer {
     app: any;
     constructor() {
         this.app = express();
         this.app.use(express.json());
+        this.app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerJSON));
     }
     async on(method: string, url: string, callback: Function) {
         this.app[method](url, async function (req: Request, res: Response) {
