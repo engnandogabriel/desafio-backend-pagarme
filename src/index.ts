@@ -10,7 +10,7 @@ import UserController from './infra/Controller/UserController';
 import PayblesRepositoryMemory from './infra/Repository/PayblesRepositoryMemory';
 import TransactionRepositoryMemory from './infra/Repository/TransactionRepositoryMemory';
 import UserRepositoryMemory from './infra/Repository/UserRepositoryMemory';
-import AxiosAdpter from './infra/http/AxiosAdpter';
+import AxiosAdpter from './infra/http/ExpressAdpter';
 
 const userRepositoryMemory = new UserRepositoryMemory();
 const transactionRepositoryMemory = new TransactionRepositoryMemory();

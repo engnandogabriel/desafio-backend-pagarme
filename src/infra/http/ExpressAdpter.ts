@@ -2,7 +2,7 @@ import HttpServer from './HttpServer';
 import express, { Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSON from '../../../swagger.json';
-export default class AxiosAdpter implements HttpServer {
+export default class ExpressAdpter implements HttpServer {
     app: any;
     constructor() {
         this.app = express();
