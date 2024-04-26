@@ -5,4 +5,5 @@ export default interface PaybleDTO {
     value: number;
     status: string;
     type: string;
+    paymentDate: string;
 }

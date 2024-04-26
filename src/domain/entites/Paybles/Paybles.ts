@@ -5,15 +5,16 @@ export default abstract class Payble {
     protected value: number;
     protected status: string;
     protected type: string;
-    protected paymentDate: Date = new Date();
+    protected paymentDate: Date;
 
-    constructor(payble_id: string, transaction_id: string, client_id: string, value: number, status: string, type: string) {
+    constructor(payble_id: string, transaction_id: string, client_id: string, value: number, status: string, type: string, paymentDate: Date) {
         this.payble_id = payble_id;
         this.transaction_id = transaction_id;
         this.client_id = client_id;
         this.value = value;
         this.status = status;
         this.type = type;
+        this.paymentDate = paymentDate;
     }
     protected abstract setPaymentDate(): void;
     protected abstract feeCalculator(): void;
