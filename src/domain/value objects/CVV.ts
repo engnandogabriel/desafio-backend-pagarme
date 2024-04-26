@@ -1,3 +1,5 @@
+import InvalidParamError from '../Error/InvalidParamError';
+
 export default class CVV {
     private cvv: string;
 
@@ -8,7 +10,7 @@ export default class CVV {
     private setCVV(cvv: string) {
         const regexCVV = /^\d{3}$/;
         if (!regexCVV.test(cvv)) {
-            throw new Error('CVV is invalid');
+            throw new InvalidParamError('CVV is invalid');
         }
         return cvv;
     }
