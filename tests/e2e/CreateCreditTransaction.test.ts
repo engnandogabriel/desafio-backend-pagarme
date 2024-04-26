@@ -16,10 +16,10 @@ test('Deve criar uma transação de crédito', async () => {
     };
     const output = await creditTransaction.execute(Input);
     expect(output.statusCode).toBe(201);
-    expect(output.body.amout).toBe(95);
-    expect(output.body.type).toBe('credit_card');
-    expect(output.body.status).toBe('waiting_funds');
-    expect(output.body.card_number).toBe('4541');
+    expect(output.body.data.amout).toBe(95);
+    expect(output.body.data.type).toBe('credit_card');
+    expect(output.body.data.status).toBe('waiting_funds');
+    expect(output.body.data.card_number).toBe('4541');
 });
 
 test('Não deve criar uma transação de crédito se o usuario não existir', async () => {
@@ -35,7 +35,7 @@ test('Não deve criar uma transação de crédito se o usuario não existir', as
     };
     const output = await creditTransaction.execute(Input);
     expect(output.statusCode).toBe(404);
-    expect(output.body).toBe('Client not found');
+    expect(output.body.error.message).toBe('Client not found');
 });
 test('Não deve criar uma transação de crédito com valor inválido', async () => {
     const creditTransaction = new CreateCreditTransaction(new UserRepositoryMemory(), new TransactionRepositoryMemory(), new PayblesRepositoryMemory());
@@ -49,8 +49,8 @@ test('Não deve criar uma transação de crédito com valor inválido', async ()
         cvv: '454',
     };
     const output = await creditTransaction.execute(Input);
-    expect(output.statusCode).toBe(422);
-    expect(output.body).toBe('Amount is ivalid');
+    expect(output.statusCode).toBe(400);
+    expect(output.body.error.message).toBe('Invalid param: The value must be greater than 10');
 });
 test('Não deve criar uma transação de crédito com número de cartão inválido', async () => {
     const creditTransaction = new CreateCreditTransaction(new UserRepositoryMemory(), new TransactionRepositoryMemory(), new PayblesRepositoryMemory());
@@ -64,8 +64,8 @@ test('Não deve criar uma transação de crédito com número de cartão inváli
         cvv: '454',
     };
     const output = await creditTransaction.execute(Input);
-    expect(output.statusCode).toBe(422);
-    expect(output.body).toBe('Length Card of Number is invalid');
+    expect(output.statusCode).toBe(400);
+    expect(output.body.error.message).toBe('Invalid param: Length Card of Number is invalid');
 });
 test('Não deve criar uma transação de crédito com número data de validade inválida', async () => {
     const creditTransaction = new CreateCreditTransaction(new UserRepositoryMemory(), new TransactionRepositoryMemory(), new PayblesRepositoryMemory());
@@ -79,8 +79,8 @@ test('Não deve criar uma transação de crédito com número data de validade i
         cvv: '454',
     };
     const output = await creditTransaction.execute(Input);
-    expect(output.statusCode).toBe(422);
-    expect(output.body).toBe('Date is invalid');
+    expect(output.statusCode).toBe(400);
+    expect(output.body.error.message).toBe('Invalid param: Period of date is invalid');
 });
 test('Não deve criar uma transação de crédito com número CVV inválida', async () => {
     const creditTransaction = new CreateCreditTransaction(new UserRepositoryMemory(), new TransactionRepositoryMemory(), new PayblesRepositoryMemory());
@@ -94,6 +94,6 @@ test('Não deve criar uma transação de crédito com número CVV inválida', as
         cvv: '4544',
     };
     const output = await creditTransaction.execute(Input);
-    expect(output.statusCode).toBe(422);
-    expect(output.body).toBe('CVV is invalid');
+    expect(output.statusCode).toBe(400);
+    expect(output.body.error.message).toBe('Invalid param: CVV is invalid');
 });

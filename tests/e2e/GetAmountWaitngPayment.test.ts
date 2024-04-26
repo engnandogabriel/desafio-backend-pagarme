@@ -9,5 +9,5 @@ test('Deve retorna o saldo já recebido', async () => {
     };
     const output = await getAmountWaitngPayment.execute(Input);
     expect(output.statusCode).toBe(200);
-    expect(output.body.status).toBe('waiting_funds');
+    expect(output.body.data.status).toBe('waiting');
 });
