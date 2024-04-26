@@ -10,7 +10,7 @@ import UserController from './infra/Controller/UserController';
 import PayblesRepositoryMemory from './infra/Repository/PayblesRepositoryMemory';
 import TransactionRepositoryMemory from './infra/Repository/TransactionRepositoryMemory';
 import UserRepositoryMemory from './infra/Repository/UserRepositoryMemory';
-import AxiosAdpter from './infra/http/ExpressAdpter';
+import ExpressAdpter from './infra/http/ExpressAdpter';
 
 const userRepositoryMemory = new UserRepositoryMemory();
 const transactionRepositoryMemory = new TransactionRepositoryMemory();
@@ -25,8 +25,8 @@ const createDebitTransaction = new CreateDebitTransaction(userRepositoryMemory, 
 const getAmountPaid = new GetAmountPaid(userRepositoryMemory, payblesRepositoryMemory);
 const getAmountWaitngPayment = new GetAmountWaitngPayment(userRepositoryMemory, payblesRepositoryMemory);
 
-const axiosAdpter = new AxiosAdpter();
-new UserController(axiosAdpter, createUser, getAllUser);
-new TransactionController(axiosAdpter, createCreditTransaction, createDebitTransaction);
-new PayblesController(axiosAdpter, getAmountPaid, getAmountWaitngPayment);
-axiosAdpter.listen(8080);
+const expressAdpter = new ExpressAdpter();
+new UserController(expressAdpter, createUser, getAllUser);
+new TransactionController(expressAdpter, createCreditTransaction, createDebitTransaction);
+new PayblesController(expressAdpter, getAmountPaid, getAmountWaitngPayment);
+expressAdpter.listen(8080);
