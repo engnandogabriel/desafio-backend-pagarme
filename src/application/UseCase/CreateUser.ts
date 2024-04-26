@@ -1,4 +1,5 @@
 import ServerError from '../../domain/Error/ServerError';
+import UnauthorizedError from '../../domain/Error/UnauthorizedError';
 import HttpResponse from '../../domain/HttpServer/HttpResponse';
 import User from '../../domain/entites/User';
 import { badRequest, serverError, success } from '../../domain/helpers/httphelpers';
@@ -13,7 +14,7 @@ export default class CreateUser implements UseCase {
     async execute(data: Input): Promise<HttpResponse> {
         try {
             const userExist = await this.userRepository.getByEmail(data.email);
-            if (userExist) return { statusCode: 422, body: 'User already exists.' };
+            if (userExist) return badRequest(new UnauthorizedError('User Exist'));
             const user = User.create(data.name, data.email);
             await this.userRepository.save(user);
             return success(201, { message: 'User created' });
