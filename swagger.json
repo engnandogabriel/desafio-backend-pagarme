@@ -1,0 +1,492 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Pagarme",
+        "description": "Documentação para o desafio backend Pagarme",
+        "contact": {
+            "email": "eng.nandogabriel@gmail.com"
+        }
+    },
+
+    "basePath": "/",
+    "paths": {
+        "/user": {
+            "get": {
+                "summary": "Obter todos os usuários",
+                "tags": ["Usuário"],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuários obtida com sucesso",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Criar um novo usuário",
+                "tags": ["Usuário"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Dados do usuário a ser criado",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Success"]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User created"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar usuário",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["BadRequest"]
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "UnauthorizedError"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User Exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transaction/credit_card": {
+            "post": {
+                "summary": "Criar uma nova transação com cartão de crédito",
+                "tags": ["Transação"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Dados da transação",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id_client": {
+                                    "type": "string",
+                                    "example": "642485af-9f85-4930-9ab9-f4c2d006d3c9"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "example": "Capinha e pelicula"
+                                },
+                                "value": {
+                                    "type": "number",
+                                    "format": "float",
+                                    "example": 963.57
+                                },
+                                "card_number": {
+                                    "type": "string",
+                                    "example": "1234 4842 4847 526"
+                                },
+                                "name_owner": {
+                                    "type": "string",
+                                    "example": "Nando G M Bezerra"
+                                },
+                                "validate_date": {
+                                    "type": "string",
+                                    "example": "04/26"
+                                },
+                                "cvv": {
+                                    "type": "string",
+                                    "example": "445"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transação criada com sucesso",
+
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Success"]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Transaction Created"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 963.57
+                                        },
+                                        "amount": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 934.6629
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "example": "debit_card"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "paid"
+                                        },
+                                        "card_number": {
+                                            "type": "string",
+                                            "example": "5206"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar transação",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["BadRequest"]
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "InvalidParamError"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid param: Length Card of Number is invalid"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transaction/debit_card": {
+            "post": {
+                "summary": "Criar uma nova transação com cartão de débito",
+                "tags": ["Transação"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Dados da transação",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id_client": {
+                                    "type": "string",
+                                    "example": "642485af-9f85-4930-9ab9-f4c2d006d3c9"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "example": "Capinha e pelicula"
+                                },
+                                "value": {
+                                    "type": "number",
+                                    "format": "float",
+                                    "example": 963.57
+                                },
+                                "card_number": {
+                                    "type": "string",
+                                    "example": "1234 4842 4847 526"
+                                },
+                                "name_owner": {
+                                    "type": "string",
+                                    "example": "Nando G M Bezerra"
+                                },
+                                "validate_date": {
+                                    "type": "string",
+                                    "example": "04/26"
+                                },
+                                "cvv": {
+                                    "type": "string",
+                                    "example": "445"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transação criada com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Success"]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Transaction Created"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 963.57
+                                        },
+                                        "amount": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 934.6629
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "example": "debit_card"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "paid"
+                                        },
+                                        "card_number": {
+                                            "type": "string",
+                                            "example": "5206"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar transação",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["BadRequest"]
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "InvalidParamError"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid param: Length Card of Number is invalid"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paybles/{client_id}/paid": {
+            "get": {
+                "summary": "Obter pagamentos realizados por um cliente",
+                "tags": ["Pagamentos"],
+
+                "parameters": [
+                    {
+                        "name": "client_id",
+                        "in": "path",
+                        "description": "ID do cliente",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pagamentos realizados obtidos com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Success"]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Paid"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "paid"
+                                        },
+                                        "amount": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 24.25
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["NotFound"]
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "NotFoundError"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paybles/{client_id}/waiting": {
+            "get": {
+                "summary": "Obter pagamentos pendentes de um cliente",
+                "tags": ["Pagamentos"],
+
+                "parameters": [
+                    {
+                        "name": "client_id",
+                        "in": "path",
+                        "description": "ID do cliente",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pagamentos realizados obtidos com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["Success"]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Paid"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "paid"
+                                        },
+                                        "amount": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 24.25
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": ["NotFound"]
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "NotFoundError"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
