@@ -1,3 +1,5 @@
+import InvalidParamError from '../Error/InvalidParamError';
+
 export default class Email {
     private email: string;
 
@@ -6,7 +8,7 @@ export default class Email {
     }
     private setEmail(email: string) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!regex.test(email)) throw new Error('Invalid email');
+        if (!regex.test(email)) throw new InvalidParamError('Email');
         return email;
     }
 
