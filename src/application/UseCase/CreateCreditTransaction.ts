@@ -26,7 +26,7 @@ export default class CreateCreditTransaction implements UseCase {
             const credit_payble = CreditPaybles.create(transaction.getId(), data.id_client, data.value);
             await this.transactionRepository.save(transaction);
             await this.payblesRepository.save(credit_payble);
-            return success(201, { message: 'Transaction Created', body: { value: data.value, amout: credit_payble.getValue(), type: credit_payble.getType(), status: credit_payble.getStatus(), card_number: transaction.getCardNumber() } });
+            return success(201, { message: 'Transaction Created', data: { value: data.value, amout: credit_payble.getValue(), type: credit_payble.getType(), status: credit_payble.getStatus(), card_number: transaction.getCardNumber() } });
         } catch (error) {
             if (error instanceof Error) {
                 return badRequest(error);

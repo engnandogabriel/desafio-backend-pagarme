@@ -13,7 +13,7 @@ export default class ValidateDate {
         const currentMonth = new Date().getMonth() + 1;
         const currentYear = new Date().getFullYear() % 100;
 
-        if (year < currentYear || (year === currentYear && month < currentMonth) || month < 1 || month > 12) throw new Error('Period of date is invalid');
+        if (year < currentYear || (year === currentYear && month < currentMonth) || month < 1 || month > 12) throw new InvalidParamError('Period of date is invalid');
 
         return date;
     }

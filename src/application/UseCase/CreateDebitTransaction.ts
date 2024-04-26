@@ -26,7 +26,7 @@ export default class CreateDebitTransaction implements UseCase {
             const debit_payble = DebitPaybles.create(transaction.getId(), data.id_client, data.value);
             await this.transactionRepository.save(transaction);
             await this.payblesRepository.save(debit_payble);
-            return success(201, { message: 'Transaction Created', body: { value: data.value, amout: debit_payble.getValue(), type: debit_payble.getType(), status: debit_payble.getStatus(), card_number: transaction.getCardNumber() } });
+            return success(201, { message: 'Transaction Created', data: { value: data.value, amout: debit_payble.getValue(), type: debit_payble.getType(), status: debit_payble.getStatus(), card_number: transaction.getCardNumber() } });
         } catch (error) {
             if (error instanceof Error) {
                 return badRequest(error);
